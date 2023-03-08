@@ -1,0 +1,9 @@
+[submodule "auth"]
+	path = auth
+	url = https://github.com/stone1549/auth
+[submodule "message"]
+	path = message
+	url = https://github.com/stone1549/message
+[submodule "proxchat"]
+	path = proxchat
+	url = https://github.com/stone1549/proxchat
