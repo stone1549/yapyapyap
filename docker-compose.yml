@@ -1,0 +1,26 @@
+services:
+  yapyapyap-db:
+    image: postgis/postgis
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: postgres
+  flyway:
+    image: flyway/flyway
+    command: -url=jdbc:postgresql://yapyapyap-db:5432/postgres -user=postgres -password=postgres -connectRetries=120 migrate
+    volumes:
+      - ./flyway/sql:/flyway/sql
+    depends_on:
+      - yapyapyap-db
+  yapyapyap-auth:
+    build: ./auth
+    ports:
+      - 3333:3333
+    depends_on:
+      - flyway
+  yapyapyap-message:
+    build: ./message
+    ports:
+      - 3334:3333
+    depends_on:
+      - flyway
