@@ -1,0 +1,1 @@
+ALTER TABLE message ADD COLUMN client_id text default gen_random_uuid()::text;

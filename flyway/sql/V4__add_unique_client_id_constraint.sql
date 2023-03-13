@@ -1,0 +1,1 @@
+ALTER TABLE message ADD CONSTRAINT message_unique_client_id_ct UNIQUE (client_id);
