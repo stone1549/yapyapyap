@@ -7,3 +7,6 @@
 [submodule "proxchat"]
 	path = proxchat
 	url = https://github.com/stone1549/proxchat
+[submodule "proxchat-web"]
+	path = proxchat-web
+	url = https://github.com/stone1549/proxchat-web
