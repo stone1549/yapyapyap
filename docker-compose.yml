@@ -24,3 +24,46 @@ services:
       - 3334:3333
     depends_on:
       - yapyapyap-db
+  yapyapyap-zookeeper:
+    image: docker.io/bitnami/zookeeper:3.8
+    ports:
+      - "2181:2181"
+    volumes:
+      - "zookeeper_data:/yapyapyap"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+  yapyapyap-kafka:
+    image: docker.io/bitnami/kafka:3.4
+    ports:
+      - "9092:9092"
+    volumes:
+      - "kafka_data:/yapyapyap"
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=yapyapyap-zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - yapyapyap-zookeeper
+  yapyapyap-hub:
+    build: ./proxchat-hub
+    scale: 3
+    ports:
+      - 9005-9008:9001
+    depends_on:
+      - yapyapyap-db
+      - yapyapyap-kafka
+      - yapyapyap-zookeeper
+#  yapyapyap-hub2:
+#    build: ./proxchat-hub
+#    ports:
+#      - 9003:9001
+#    depends_on:
+#      - yapyapyap-db
+#      - yapyapyap-kafka
+#      - yapyapyap-zookeeper
+#      - yapyapyap-hub
+
+volumes:
+  zookeeper_data:
+    driver: local
+  kafka_data:
+    driver: local
