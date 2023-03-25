@@ -1,15 +1,15 @@
 [submodule "auth"]
 	path = auth
-	url = https://github.com/stone1549/auth
+	url = git@github.com:stone1549/auth.git
 [submodule "message"]
 	path = message
-	url = https://github.com/stone1549/message
+	url = git@github.com:stone1549/message.git
 [submodule "proxchat"]
 	path = proxchat
-	url = https://github.com/stone1549/proxchat
+	url = git@github.com:stone1549/proxchat.git
 [submodule "proxchat-web"]
 	path = proxchat-web
-	url = https://github.com/stone1549/proxchat-web
+	url = git@github.com:stone1549/proxchat-web.git
 [submodule "proxchat-hub"]
 	path = proxchat-hub
-	url = https://github.com/stone1549/proxchat-hub
+	url = git@github.com:stone1549/proxchat-hub.git
