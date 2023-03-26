@@ -14,6 +14,7 @@ You will need to have followed the react-native setup guide located [here](https
 clone the repo then
 
     cd yapyapyap
+    git submodule update --init --recursive
     docker compose up
 
 Get some coffee while the stack builds and deploys
