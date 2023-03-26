@@ -13,3 +13,6 @@
 [submodule "proxchat-hub"]
 	path = proxchat-hub
 	url = git@github.com:stone1549/proxchat-hub.git
+[submodule "message-writer"]
+	path = message-writer
+	url = git@github.com:stone1549/message-writer.git

@@ -1,4 +1,4 @@
 .idea/
 .terraform/
 .DS_Store
-/auth/auth.iml
+*.iml

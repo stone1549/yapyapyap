@@ -7,7 +7,7 @@ services:
       POSTGRES_PASSWORD: postgres
   flyway:
     image: flyway/flyway
-    command: -postgresql.transactional.lock=false -url=jdbc:postgresql://yapyapyap-db:5432/postgres -user=postgres -password=postgres -connectRetries=120 migrate
+    command: -postgresql.transactional.lock=false -url=jdbc:postgresql://yapyapyap-db:5432/postgres -user=postgres -password=postgres -connectRetriesInterval=60 -connectRetries=120 migrate
     volumes:
       - ./flyway/sql:/flyway/sql
     depends_on:
@@ -34,8 +34,10 @@ services:
       - ALLOW_ANONYMOUS_LOGIN=yes
   yapyapyap-kafka:
     image: docker.io/bitnami/kafka:3.4
+    deploy:
+        replicas: 3
     ports:
-      - "9092:9092"
+      - 9092-9095:9092
     volumes:
       - "kafka_data:/yapyapyap"
     environment:
@@ -43,24 +45,25 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
       - yapyapyap-zookeeper
+  yapyapyap-message-writer:
+    build: ./message-writer
+    deploy:
+      replicas: 3
+    depends_on:
+      - yapyapyap-db
+      - yapyapyap-kafka
+      - yapyapyap-zookeeper
   yapyapyap-hub:
     build: ./proxchat-hub
-    scale: 3
+    deploy:
+        replicas: 3
     ports:
       - 9005-9008:9001
     depends_on:
       - yapyapyap-db
       - yapyapyap-kafka
       - yapyapyap-zookeeper
-#  yapyapyap-hub2:
-#    build: ./proxchat-hub
-#    ports:
-#      - 9003:9001
-#    depends_on:
-#      - yapyapyap-db
-#      - yapyapyap-kafka
-#      - yapyapyap-zookeeper
-#      - yapyapyap-hub
+      - yapyapyap-message-writer
 
 volumes:
   zookeeper_data:
