@@ -37,7 +37,7 @@ services:
     deploy:
         replicas: 3
     ports:
-      - 9092-9095:9092
+      - 9092-9094:9092
     volumes:
       - "kafka_data:/yapyapyap"
     environment:
@@ -58,7 +58,7 @@ services:
     deploy:
         replicas: 3
     ports:
-      - 9005-9008:9001
+      - 9005-9007:9001
     depends_on:
       - yapyapyap-db
       - yapyapyap-kafka
